@@ -8,6 +8,9 @@ const CONFIG = {
   // Exemplo: "https://script.google.com/macros/s/AKfycbx.../exec"
   APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxDQAbIhYfOSB6wejSBZu9REPGYI16YOiEMxE0EOYCZ3gjC6glTsmPf-G9ZgCy3P24/exec",
 
+  // PIN de acesso restrito à coordenação e recepção
+  ADMIN_PIN: "adapo2026",
+
   EVENTO: {
     NOME: "Amazônia Brincante 2026",
     SUBTITULO: "Ação de Dia das Crianças - Instituto Ádapo",
@@ -20,7 +23,8 @@ const CONFIG = {
     VOLUNTARIOS: "adapo_voluntarios_cache",
     AREAS: "adapo_areas_cache",
     ULTIMA_ATUALIZACAO: "adapo_ultima_atualizacao",
-    APPS_SCRIPT_URL_OVERRIDE: "adapo_script_url_custom"
+    APPS_SCRIPT_URL_OVERRIDE: "adapo_script_url_custom",
+    ADMIN_AUTH: "adapo_admin_authenticated"
   },
 
   // Áreas padrão cadastradas no sistema

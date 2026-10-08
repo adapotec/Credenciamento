@@ -34,22 +34,59 @@
           </div>
         </a>
 
-        <nav class="header-nav">
-          <a href="index.html" class="nav-link">
-            <i data-lucide="id-card" style="width: 16px; height: 16px;"></i>
-            Portal do Voluntário
-          </a>
-          <a href="admin.html" class="nav-link active">
-            <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
-            Painel da Recepção
-          </a>
-        </nav>
+        <div class="header-nav">
+          <span class="badge badge-inscrito" style="font-size: 11px; padding: 6px 12px;">
+            <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
+            Acesso Restrito
+          </span>
+          <button type="button" id="btnLogoutAdmin" class="btn btn-secondary btn-sm" style="display: none; padding: 6px 12px; font-size: 12px;">
+            <i data-lucide="lock" style="width: 13px; height: 13px;"></i>
+            Bloquear
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
+  <!-- Tela de Bloqueio e Autenticação por PIN de Segurança -->
+  <div id="authGateOverlay" style="position: fixed; inset: 0; background: var(--bg-primary); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: var(--space-4);">
+    <div class="card" style="width: 100%; max-width: 420px; text-align: center; box-shadow: var(--shadow-xl); border: 2px solid var(--border-default);">
+      <div style="width: 52px; height: 52px; background: var(--color-primary-soft); color: var(--color-primary); border-radius: var(--radius-control); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3) auto;">
+        <i data-lucide="lock" style="width: 26px; height: 26px;"></i>
+      </div>
+      <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--space-1);">Acesso da Coordenação</h2>
+      <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--space-6);">
+        Painel restrito à equipe de credenciamento e recepção do Instituto Ádapo.
+      </p>
+
+      <form id="authPinForm">
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label" for="inputPin">PIN de Segurança</label>
+          <input 
+            type="password" 
+            id="inputPin" 
+            class="form-input" 
+            placeholder="Digite o PIN da coordenação..."
+            autocomplete="current-password"
+            required
+            style="text-align: center; letter-spacing: 4px; font-size: 18px;"
+          >
+        </div>
+
+        <div id="authErrorMsg" class="alert alert-warning" style="display: none; font-size: 12px; padding: 8px 12px; margin-bottom: var(--space-4);">
+          PIN incorreto. Verifique com a coordenação geral.
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <i data-lucide="key-round" style="width: 16px; height: 16px;"></i>
+          Liberar Painel
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Conteúdo Principal -->
-  <main class="admin-portal">
+  <main class="admin-portal" id="adminMainContent" style="display: none;">
     <div class="container">
 
       <!-- Grid de Métricas em Tempo Real -->

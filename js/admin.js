@@ -6,8 +6,66 @@
 window.AdminManager = {
   voluntarios: [],
   areas: [],
+  inicializado: false,
+
+  async checarAutenticacao() {
+    const authOverlay = document.getElementById("authGateOverlay");
+    const mainContent = document.getElementById("adminMainContent");
+    const btnLogout = document.getElementById("btnLogoutAdmin");
+    const isAutenticado = sessionStorage.getItem(CONFIG.STORAGE_KEYS.ADMIN_AUTH) === "true";
+
+    if (isAutenticado) {
+      if (authOverlay) authOverlay.style.display = "none";
+      if (mainContent) mainContent.style.display = "block";
+      if (btnLogout) btnLogout.style.display = "inline-flex";
+      if (!this.inicializado) {
+        await this.inicializar();
+      }
+    } else {
+      if (authOverlay) authOverlay.style.display = "flex";
+      if (mainContent) mainContent.style.display = "none";
+      if (btnLogout) btnLogout.style.display = "none";
+      const pinInput = document.getElementById("inputPin");
+      if (pinInput) setTimeout(() => pinInput.focus(), 150);
+    }
+  },
+
+  configurarAutenticacao() {
+    const formPin = document.getElementById("authPinForm");
+    const inputPin = document.getElementById("inputPin");
+    const errorMsg = document.getElementById("authErrorMsg");
+    const btnLogout = document.getElementById("btnLogoutAdmin");
+
+    if (formPin) {
+      formPin.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const pinDigitado = (inputPin?.value || "").trim();
+
+        if (pinDigitado === CONFIG.ADMIN_PIN) {
+          sessionStorage.setItem(CONFIG.STORAGE_KEYS.ADMIN_AUTH, "true");
+          if (errorMsg) errorMsg.style.display = "none";
+          await this.checarAutenticacao();
+        } else {
+          if (errorMsg) errorMsg.style.display = "block";
+          if (inputPin) {
+            inputPin.value = "";
+            inputPin.focus();
+          }
+        }
+      });
+    }
+
+    if (btnLogout) {
+      btnLogout.addEventListener("click", () => {
+        sessionStorage.removeItem(CONFIG.STORAGE_KEYS.ADMIN_AUTH);
+        if (window.ScannerManager) ScannerManager.parar();
+        this.checarAutenticacao();
+      });
+    }
+  },
 
   async inicializar() {
+    this.inicializado = true;
     this.configurarAbas();
     this.configurarBotoes();
     this.carregarConfiguracao();
@@ -415,7 +473,8 @@ window.AdminManager = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  window.AdminManager.inicializar();
+  window.AdminManager.configurarAutenticacao();
+  window.AdminManager.checarAutenticacao();
 });
 
 function escapeHtml(string) {
