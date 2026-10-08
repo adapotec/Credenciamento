@@ -1,0 +1,381 @@
+/* =========================================================
+   ESTILOS DO PORTAL E DA CREDENCIAL DO VOLUNTÁRIO
+   Design System 2.0 Ádapo • Soft Bento • Zero Emojis
+   ========================================================= */
+
+.volunteer-portal {
+  padding: var(--space-8) 0 var(--space-12) 0;
+}
+
+/* Seção de Busca */
+.search-hero {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.search-badge-tag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-amazon-soft);
+  color: var(--color-amazon);
+  border: 1px solid var(--color-amazon-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: var(--space-3);
+}
+
+.search-title {
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.search-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto var(--space-6) auto;
+}
+
+.search-box-wrapper {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.search-input-field {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-control);
+  background-color: var(--bg-elevated);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-fast);
+}
+
+.search-input-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(242, 99, 45, 0.12);
+}
+
+.search-icon-svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Lista de Sugestões de Busca */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  max-height: 320px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-results-dropdown.active {
+  display: block;
+}
+
+.search-result-item {
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  text-align: left;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: var(--color-primary-soft);
+}
+
+.search-result-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.search-result-meta {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.search-empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* =========================================================
+   CREDENCIAL OFICIAL DO VOLUNTÁRIO (PASSPORT CARD)
+   ========================================================= */
+
+.credential-wrapper {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.credential-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-container);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+}
+
+/* Topo Institucional do Crachá */
+.credential-header {
+  background: linear-gradient(135deg, #1C9C82 0%, #157E69 100%);
+  color: #FFFFFF;
+  padding: var(--space-6);
+  position: relative;
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.credential-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.credential-code-tag {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-badge);
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: #FFFFFF;
+}
+
+.credential-volunteer-name {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: var(--space-1);
+}
+
+.credential-event-title {
+  font-size: var(--font-size-xs);
+  color: #E7F6F3;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Corpo da Credencial */
+.credential-body {
+  padding: var(--space-6);
+}
+
+/* Container do QR Code */
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.qr-code-box {
+  background: #FFFFFF;
+  padding: 12px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-card);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-3);
+}
+
+.qr-code-box canvas, .qr-code-box img {
+  display: block;
+}
+
+.qr-instruction {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Blocos de Informação */
+.info-section {
+  margin-bottom: var(--space-6);
+}
+
+.section-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.main-area-card {
+  background: var(--color-amazon-soft);
+  border: 1px solid var(--color-amazon-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.main-area-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-amazon-hover);
+  margin-bottom: var(--space-1);
+}
+
+.main-area-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Card do Coordenador de Área */
+.coordinator-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  margin-top: var(--space-3);
+}
+
+.coordinator-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+  flex-shrink: 0;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(242, 99, 45, 0.25);
+}
+
+.coordinator-info {
+  flex: 1;
+}
+
+.coordinator-role-tag {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coordinator-name {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Áreas de Apoio */
+.secondary-areas-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+/* Grid de Logística Soft Bento */
+.logistics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.logistics-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-control);
+  padding: var(--space-3);
+}
+
+.logistics-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--space-1);
+}
+
+.logistics-val {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Ações da Credencial */
+.credential-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-top: 1px solid var(--border-default);
+  padding-top: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .logistics-grid {
+    grid-template-columns: 1fr;
+  }
+  .credential-volunteer-name {
+    font-size: var(--font-size-xl);
+  }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credencial do Voluntário | Amazônia Brincante 2026 — Instituto Ádapo</title>
+  <meta name="description" content="Portal oficial de consulta de credencial e cartão de missão do voluntário para a ação Amazônia Brincante 2026 do Instituto Ádapo.">
+  
+  <!-- Fontes Institucionais -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/voluntario.css">
+
+  <!-- Bibliotecas CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Cabeçalho Institucional -->
+  <header class="top-header">
+    <div class="container">
+      <div class="top-header-inner">
+        <a href="index.html" class="brand-wrapper">
+          <div class="brand-logo-mark">ÁD</div>
+          <div class="brand-titles">
+            <span class="brand-name">Instituto Ádapo</span>
+            <span class="brand-event">Amazônia Brincante 2026 • 11 de Outubro</span>
+          </div>
+        </a>
+
+        <nav class="header-nav">
+          <a href="index.html" class="nav-link active">
+            <i data-lucide="id-card" style="width: 16px; height: 16px;"></i>
+            Portal do Voluntário
+          </a>
+          <a href="admin.html" class="nav-link">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+            Coordenação e Recepção
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="volunteer-portal">
+    <div class="container-narrow">
+
+      <!-- Seção de Busca do Voluntário -->
+      <section id="searchSection" class="search-hero">
+        <span class="search-badge-tag">Ação Social Dia das Crianças</span>
+        <h1 class="search-title">Credencial Oficial do Voluntário</h1>
+        <p class="search-subtitle">
+          Digite seu nome completo abaixo para emitir seu cartão digital com QR Code, área de atuação e contato do coordenador.
+        </p>
+
+        <div class="search-box-wrapper">
+          <i data-lucide="search" class="search-icon-svg"></i>
+          <input 
+            type="text" 
+            id="volunteerSearchInput" 
+            class="search-input-field" 
+            placeholder="Digite seu nome (ex: Ana, Matheus, Angelina)..." 
+            autocomplete="off"
+            aria-label="Buscar voluntário pelo nome"
+          >
+
+          <!-- Dropdown com sugestões -->
+          <div id="searchResultsDropdown" class="search-results-dropdown" role="listbox"></div>
+        </div>
+      </section>
+
+      <!-- Estado de Carregamento -->
+      <div id="loadingState" class="loading-container" style="display: none;">
+        <div class="spinner"></div>
+        <p>Localizando registros na planilha...</p>
+      </div>
+
+      <!-- Credencial Oficial (Exibida após seleção) -->
+      <section id="credentialSection" class="credential-wrapper" style="display: none;">
+        
+        <div class="credential-card" id="credentialBadgeToDownload">
+          
+          <!-- Topo do Crachá -->
+          <div class="credential-header">
+            <div class="credential-header-meta">
+              <span>Instituto Ádapo</span>
+              <span class="credential-code-tag" id="badgeVolunteerId">ADP-0000</span>
+            </div>
+            <h2 class="credential-volunteer-name" id="badgeVolunteerName">Nome do Voluntário</h2>
+            <div class="credential-event-title">Amazônia Brincante 2026 • Voluntariado Oficial</div>
+          </div>
+
+          <!-- Corpo do Crachá -->
+          <div class="credential-body">
+
+            <!-- Status de Credenciamento -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+              <span class="form-label" style="margin-bottom: 0;">Status de Presença</span>
+              <span id="badgeStatusBadge" class="badge badge-inscrito">Inscrito</span>
+            </div>
+
+            <!-- Bloco do QR Code -->
+            <div class="qr-section">
+              <div class="qr-code-box" id="qrcodeContainer"></div>
+              <div class="qr-instruction">Apresente este QR Code na recepção em 11/10</div>
+            </div>
+
+            <!-- Área Principal de Atuação -->
+            <div class="info-section">
+              <div class="section-label">
+                <i data-lucide="compass" style="width: 14px; height: 14px;"></i>
+                Área Principal de Atuação
+              </div>
+              <div class="main-area-card">
+                <h3 class="main-area-title" id="badgeMainAreaTitle">Carregando área...</h3>
+                <p class="main-area-desc" id="badgeMainAreaDesc">Orientações da equipe...</p>
+              </div>
+
+              <!-- Áreas de Apoio Cadastradas (se houver) -->
+              <div id="secondaryAreasContainer" style="display: none;">
+                <div class="section-label" style="margin-top: var(--space-3); font-size: 11px;">
+                  <i data-lucide="layers" style="width: 13px; height: 13px;"></i>
+                  Áreas de Apoio Cadastradas (Redirecionamento se necessário)
+                </div>
+                <div class="secondary-areas-list" id="badgeSecondaryAreasList"></div>
+              </div>
+            </div>
+
+            <!-- Card do Coordenador de Área -->
+            <div class="info-section" id="coordinatorSection">
+              <div class="section-label">
+                <i data-lucide="user-check" style="width: 14px; height: 14px;"></i>
+                Responsável da sua Área
+              </div>
+              
+              <div class="coordinator-card">
+                <div class="coordinator-avatar" id="coordinatorAvatar">AD</div>
+                <div class="coordinator-info">
+                  <div class="coordinator-role-tag" id="coordinatorPontoEncontro">Ponto de Encontro</div>
+                  <div class="coordinator-name" id="coordinatorName">Coordenação Ádapo</div>
+                </div>
+
+                <a href="#" id="coordinatorWhatsappBtn" target="_blank" class="btn btn-outline-primary btn-sm" style="flex-shrink: 0;">
+                  <i data-lucide="message-circle" style="width: 15px; height: 15px;"></i>
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+
+            <!-- Detalhes de Logística e Horário -->
+            <div class="info-section">
+              <div class="section-label">
+                <i data-lucide="calendar-clock" style="width: 14px; height: 14px;"></i>
+                Logística Operacional
+              </div>
+              
+              <div class="logistics-grid">
+                <div class="logistics-card">
+                  <div class="logistics-label">Horário de Apresentação</div>
+                  <div class="logistics-val" id="badgeHorario">13h00 (Início da Ação)</div>
+                </div>
+
+                <div class="logistics-card">
+                  <div class="logistics-label">Alimentação no Local</div>
+                  <div class="logistics-val" id="badgeAlimentacao">Não necessita de almoço</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ações -->
+            <div class="credential-actions">
+              <button type="button" id="btnDownloadBadge" class="btn btn-primary btn-full">
+                <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                Salvar Credencial como Imagem (PNG)
+              </button>
+
+              <button type="button" id="btnChangeVolunteer" class="btn btn-secondary btn-full">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                Buscar Outro Voluntário
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Instituto Ádapo • CNPJ Comunitário • São Luís, Maranhão</p>
+      <p style="margin-top: 4px; color: var(--color-text-muted);">
+        Ação Amazônia Brincante 2026 — Dia das Crianças • Sistema de Credenciamento Oficial
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/voluntario.js"></script>
+  <script>
+    // Inicialização de ícones Lucide
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+/* =========================================================
+   ESTILOS DO PAINEL ADMIN E RECEPÇÃO
+   Design System 2.0 Ádapo • Soft Bento • Zero Emojis
+   ========================================================= */
+
+.admin-portal {
+  padding: var(--space-6) 0 var(--space-12) 0;
+}
+
+/* Barra de Abas Bento */
+.admin-nav-tabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--border-default);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  padding-bottom: var(--space-1);
+}
+
+.tab-btn {
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border-color: var(--color-primary-border);
+  box-shadow: 0 1px 3px rgba(242, 99, 45, 0.1);
+}
+
+/* Grid de Métricas Principais Soft Bento */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.metric-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.metric-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.metric-val {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.metric-card.presentes .metric-val {
+  color: var(--status-success);
+}
+
+.metric-card.faltantes .metric-val {
+  color: var(--status-warning);
+}
+
+.metric-sub {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+
+/* =========================================================
+   SEÇÃO DO SCANNER DE QR CODE (RECEPÇÃO)
+   ========================================================= */
+
+.scanner-view-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 840px) {
+  .scanner-view-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scanner-viewport-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  background: #000000;
+}
+
+#reader {
+  width: 100%;
+}
+
+.scanner-status-indicator {
+  padding: var(--space-3);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-control);
+  margin-top: var(--space-3);
+}
+
+/* Card de Resultado Imediato da Leitura */
+.scan-result-card {
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-fast);
+}
+
+.scan-result-card.success-flash {
+  border-color: var(--status-success);
+  box-shadow: 0 0 0 4px var(--status-success-bg);
+}
+
+.scan-result-card.warning-flash {
+  border-color: var(--status-warning);
+  box-shadow: 0 0 0 4px var(--status-warning-bg);
+}
+
+.scan-feedback-banner {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-control);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.scan-feedback-banner.success {
+  background: var(--status-success);
+  color: #FFFFFF;
+  border: 1px solid var(--status-success);
+}
+
+.scan-feedback-banner.already {
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
+  border: 1px solid var(--status-warning-border);
+}
+
+.scan-volunteer-details {
+  border-top: 1px solid var(--border-default);
+  padding-top: var(--space-4);
+}
+
+.scan-volunteer-name {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* =========================================================
+   TABELA E FILTROS DE VOLUNTÁRIOS
+   ========================================================= */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.filter-search-box {
+  flex: 1;
+  min-width: 240px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.admin-table th {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: var(--bg-secondary);
+}
+
+.table-volunteer-name {
+  font-weight: 600;
+}
+
+.table-volunteer-id {
+  font-family: monospace;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* Gestão de Áreas (Cards de Alocação) */
+.areas-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.area-summary-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+}
+
+.area-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+
+.area-summary-title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-amazon);
+}
+
+.area-progress-bar {
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: var(--space-2) 0 var(--space-3) 0;
+}
+
+.area-progress-fill {
+  height: 100%;
+  background: var(--status-success);
+  border-radius: var(--radius-pill);
+}

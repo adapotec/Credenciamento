@@ -1,0 +1,8 @@
+# Ambientes de desenvolvimento e IDEs
+.agent/
+.vscode/
+.idea/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

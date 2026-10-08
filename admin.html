@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coordenação e Credenciamento | Amazônia Brincante 2026 — Instituto Ádapo</title>
+  <meta name="description" content="Painel oficial de credenciamento via QR Code, controle de presença e gestão de voluntários do Instituto Ádapo.">
+
+  <!-- Fontes Institucionais -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/admin.css">
+
+  <!-- Bibliotecas CDN -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Cabeçalho Institucional -->
+  <header class="top-header">
+    <div class="container">
+      <div class="top-header-inner">
+        <a href="admin.html" class="brand-wrapper">
+          <div class="brand-logo-mark">ÁD</div>
+          <div class="brand-titles">
+            <span class="brand-name">Instituto Ádapo</span>
+            <span class="brand-event">Coordenação & Credenciamento • Amazônia Brincante</span>
+          </div>
+        </a>
+
+        <nav class="header-nav">
+          <a href="index.html" class="nav-link">
+            <i data-lucide="id-card" style="width: 16px; height: 16px;"></i>
+            Portal do Voluntário
+          </a>
+          <a href="admin.html" class="nav-link active">
+            <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+            Painel da Recepção
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="admin-portal">
+    <div class="container">
+
+      <!-- Grid de Métricas em Tempo Real -->
+      <section class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Total Inscritos</span>
+            <i data-lucide="users" style="width: 18px; height: 18px; color: var(--color-text-muted);"></i>
+          </div>
+          <div class="metric-val" id="metricTotal">0</div>
+          <div class="metric-sub">Voluntários registrados na ação</div>
+        </div>
+
+        <div class="metric-card presentes">
+          <div class="metric-header">
+            <span class="metric-label">Credenciados (Presentes)</span>
+            <i data-lucide="check-circle" style="width: 18px; height: 18px; color: var(--color-success);"></i>
+          </div>
+          <div class="metric-val" id="metricPresentes">0</div>
+          <div class="metric-sub" id="metricPercentual">0% do efetivo no local</div>
+        </div>
+
+        <div class="metric-card faltantes">
+          <div class="metric-header">
+            <span class="metric-label">Aguardando Chegada</span>
+            <i data-lucide="clock" style="width: 18px; height: 18px; color: var(--color-warning);"></i>
+          </div>
+          <div class="metric-val" id="metricFaltantes">0</div>
+          <div class="metric-sub">Ainda não apresentados na recepção</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Almoços Confirmados</span>
+            <i data-lucide="utensils" style="width: 18px; height: 18px; color: var(--color-accent);"></i>
+          </div>
+          <div class="metric-val" id="metricAlmoco">0</div>
+          <div class="metric-sub">Refeições no local da ação</div>
+        </div>
+      </section>
+
+      <!-- Barra de Navegação por Abas -->
+      <nav class="admin-nav-tabs">
+        <button type="button" class="tab-btn active" data-tab="tabScanner">
+          <i data-lucide="scan-line" style="width: 16px; height: 16px;"></i>
+          Credenciamento (Scanner QR)
+        </button>
+        <button type="button" class="tab-btn" data-tab="tabLista">
+          <i data-lucide="list-checks" style="width: 16px; height: 16px;"></i>
+          Lista de Voluntários & Presença
+        </button>
+        <button type="button" class="tab-btn" data-tab="tabAreas">
+          <i data-lucide="layout-grid" style="width: 16px; height: 16px;"></i>
+          Distribuição por Áreas
+        </button>
+        <button type="button" class="tab-btn" data-tab="tabConfig">
+          <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+          Configuração & Integração
+        </button>
+      </nav>
+
+      <!-- =========================================================
+           ABA 1: SCANNER DE QR CODE (RECEPÇÃO)
+           ========================================================= -->
+      <section id="tabScanner" class="tab-content active">
+        <div class="scanner-view-layout">
+
+          <!-- Coluna 1: Câmera do Leitor -->
+          <div class="scanner-viewport-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+              <h2 style="font-size: var(--font-size-base);">Leitor de QR Code da Recepção</h2>
+              <span id="cameraStatusBadge" class="badge badge-inscrito">Pronto</span>
+            </div>
+
+            <!-- Viewport do HTML5 QR Code -->
+            <div class="scanner-container">
+              <div id="reader"></div>
+            </div>
+
+            <div class="scanner-status-indicator" id="scannerMessage">
+              Aponte a câmera para o QR Code da credencial do voluntário.
+            </div>
+
+            <!-- Controles do Scanner -->
+            <div style="display: flex; gap: var(--space-2); margin-top: var(--space-4);">
+              <button type="button" id="btnToggleCamera" class="btn btn-secondary btn-full btn-sm">
+                <i data-lucide="camera" style="width: 14px; height: 14px;"></i>
+                <span id="btnCameraText">Alternar Câmera</span>
+              </button>
+              <button type="button" id="btnRestartScanner" class="btn btn-secondary btn-full btn-sm">
+                <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i>
+                Reiniciar Leitor
+              </button>
+            </div>
+
+            <!-- Fallback: Check-in Manual por Código ou Nome -->
+            <div style="margin-top: var(--space-6); border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
+              <label class="form-label">Check-in Manual Rápido (Se o voluntário estiver sem celular)</label>
+              <div style="display: flex; gap: var(--space-2);">
+                <input 
+                  type="text" 
+                  id="manualCheckinInput" 
+                  class="form-input" 
+                  placeholder="Digite o código (ex: ADP-1002) ou nome..."
+                  style="font-size: 14px;"
+                >
+                <button type="button" id="btnManualCheckin" class="btn btn-primary" style="flex-shrink: 0;">
+                  Confirmar
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Coluna 2: Resultado Imediato da Leitura -->
+          <div>
+            <div class="scan-result-card" id="scanResultCard">
+              <div class="scan-feedback-banner success" id="scanFeedbackBanner" style="display: none;">
+                <i data-lucide="check" style="width: 18px; height: 18px;"></i>
+                <span id="scanFeedbackText">Presença Registrada com Sucesso</span>
+              </div>
+
+              <div id="scanEmptyState" style="text-align: center; padding: var(--space-10) var(--space-4); color: var(--color-text-muted);">
+                <i data-lucide="qr-code" style="width: 48px; height: 48px; margin-bottom: var(--space-3); stroke-width: 1.5;"></i>
+                <p style="font-weight: 600; color: var(--color-text-primary);">Aguardando Leitura</p>
+                <p style="font-size: var(--font-size-xs);">Os dados do voluntário credenciado aparecerão instantaneamente aqui.</p>
+              </div>
+
+              <!-- Detalhes do Voluntário Lido -->
+              <div id="scanDetailsContainer" style="display: none;">
+                <div class="credential-code-tag" id="scanVolunteerId" style="background: var(--color-surface-subtle); color: var(--color-primary-dark); border: 1px solid var(--color-border); display: inline-block; margin-bottom: var(--space-2);">
+                  ADP-0000
+                </div>
+
+                <h3 class="scan-volunteer-name" id="scanVolunteerName">Nome do Voluntário</h3>
+
+                <div class="logistics-grid" style="margin-bottom: var(--space-4);">
+                  <div class="logistics-card">
+                    <div class="logistics-label">Área de Atuação</div>
+                    <div class="logistics-val" id="scanVolunteerArea" style="color: var(--color-primary);">Área</div>
+                  </div>
+
+                  <div class="logistics-card">
+                    <div class="logistics-label">Horário de Chegada</div>
+                    <div class="logistics-val" id="scanArrivalTime">--:--:--</div>
+                  </div>
+
+                  <div class="logistics-card">
+                    <div class="logistics-label">Horário Previsto</div>
+                    <div class="logistics-val" id="scanExpectedTime">13h00</div>
+                  </div>
+
+                  <div class="logistics-card">
+                    <div class="logistics-label">Almoço no Local</div>
+                    <div class="logistics-val" id="scanLunchInfo">Não</div>
+                  </div>
+                </div>
+
+                <!-- Orientações para a Recepção -->
+                <div class="alert alert-info" style="margin-bottom: var(--space-4);">
+                  <i data-lucide="info" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+                  <div>
+                    <strong>Instrução da Recepção:</strong>
+                    <div id="scanInstructions">Entregar crachá físico e orientar o voluntário a se apresentar ao coordenador de área.</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: var(--space-2);">
+                  <button type="button" id="btnNextScan" class="btn btn-outline-primary btn-full btn-sm">
+                    <i data-lucide="check" style="width: 14px; height: 14px;"></i>
+                    Pronto para o Próximo Voluntário
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Últimas Leituras Realizadas -->
+            <div class="card" style="margin-top: var(--space-4); padding: var(--space-4);">
+              <h4 style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3);">
+                Histórico Recente de Entradas
+              </h4>
+              <div id="recentScansList" style="font-size: var(--font-size-xs); color: var(--color-text-secondary); display: flex; flex-direction: column; gap: var(--space-2);">
+                <div style="color: var(--color-text-muted);">Nenhuma entrada registrada nesta sessão.</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- =========================================================
+           ABA 2: LISTA GERAL DE VOLUNTÁRIOS & CONTROLE
+           ========================================================= -->
+      <section id="tabLista" class="tab-content" style="display: none;">
+        
+        <!-- Barra de Filtros -->
+        <div class="filter-bar">
+          <div class="filter-search-box">
+            <input 
+              type="text" 
+              id="tableSearchInput" 
+              class="form-input" 
+              placeholder="Pesquisar por nome, WhatsApp ou ID..."
+            >
+          </div>
+
+          <div style="min-width: 180px;">
+            <select id="filterStatus" class="form-select">
+              <option value="todos">Todos os Status</option>
+              <option value="presente">Apenas Presentes (Credenciados)</option>
+              <option value="inscrito">Apenas Faltantes (Aguardando)</option>
+            </select>
+          </div>
+
+          <div style="min-width: 220px;">
+            <select id="filterArea" class="form-select">
+              <option value="todas">Todas as Áreas</option>
+            </select>
+          </div>
+
+          <button type="button" id="btnExportCsv" class="btn btn-secondary" style="flex-shrink: 0;">
+            <i data-lucide="file-spreadsheet" style="width: 16px; height: 16px;"></i>
+            Exportar CSV
+          </button>
+        </div>
+
+        <!-- Tabela Responsiva de Voluntários -->
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Voluntário</th>
+                <th>Contato</th>
+                <th>Área Principal</th>
+                <th>Disponibilidade</th>
+                <th>Chegada</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="volunteersTableBody">
+              <!-- Linhas geradas via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           ABA 3: DISTRIBUIÇÃO POR ÁREAS
+           ========================================================= -->
+      <section id="tabAreas" class="tab-content" style="display: none;">
+        <div style="margin-bottom: var(--space-4);">
+          <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--space-1);">Quadro Operacional por Áreas</h2>
+          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+            Acompanhe o preenchimento de cada equipe e identifique carências de efetivo em tempo real.
+          </p>
+        </div>
+
+        <div class="areas-summary-grid" id="areasSummaryGrid">
+          <!-- Cards de áreas gerados via JavaScript -->
+        </div>
+      </section>
+
+      <!-- =========================================================
+           ABA 4: CONFIGURAÇÃO & INTEGRAÇÃO
+           ========================================================= -->
+      <section id="tabConfig" class="tab-content" style="display: none;">
+        <div class="card" style="max-width: 680px; margin: 0 auto;">
+          <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--space-2);">Integração com a Planilha Google Sheets</h2>
+          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6);">
+            Conecte este sistema diretamente à planilha de inscrições do Instituto Ádapo via Google Apps Script.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">URL da API do Google Apps Script (Web App)</label>
+            <input 
+              type="url" 
+              id="inputAppsScriptUrl" 
+              class="form-input" 
+              placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+            >
+            <small style="color: var(--color-text-muted); display: block; margin-top: var(--space-1); font-size: 12px;">
+              Cole a URL obtida ao clicar em <em>Implantar &gt; Nova Implantação &gt; Aplicativo da Web</em> na sua planilha.
+            </small>
+          </div>
+
+          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
+            <button type="button" id="btnSaveConfig" class="btn btn-primary">
+              <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+              Salvar Configuração
+            </button>
+
+            <button type="button" id="btnSyncNow" class="btn btn-secondary">
+              <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+              Sincronizar com a Planilha Agora
+            </button>
+          </div>
+
+          <div id="syncResultAlert" class="alert alert-success" style="display: none; margin-top: var(--space-4);">
+            Configuração atualizada com sucesso.
+          </div>
+
+          <div style="margin-top: var(--space-8); border-top: 1px solid var(--color-border); padding-top: var(--space-6);">
+            <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-2);">Instruções Rápidas de Implantação</h3>
+            <ol style="font-size: var(--font-size-sm); color: var(--color-text-secondary); padding-left: var(--space-4); line-height: 1.6;">
+              <li>Abra a planilha Google Sheets do Instituto Ádapo.</li>
+              <li>Acesse o menu <strong>Extensões &gt; Apps Script</strong>.</li>
+              <li>Cole o conteúdo do arquivo <code>apps-script/Code.gs</code> e salve.</li>
+              <li>Clique no botão <strong>Executar</strong> selecionando a função <code>executarSetupInicial</code> (para criar as colunas e a aba de Áreas).</li>
+              <li>Clique em <strong>Implantar &gt; Nova implantação</strong>.</li>
+              <li>Tipo: <em>Aplicativo da Web</em> | Quem pode acessar: <strong>Qualquer pessoa</strong>.</li>
+              <li>Copie a URL gerada e cole no campo acima.</li>
+            </ol>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>Instituto Ádapo • Coordenação de Voluntariado • Amazônia Brincante 2026</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/scanner.js"></script>
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

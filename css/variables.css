@@ -1,0 +1,91 @@
+:root {
+  /* =========================================================
+     DESIGN SYSTEM & PADRÕES DE INTERFACE — SISTEMA ELO / ÁDAPO
+     Baseado em desing.md (Versão 2.0 - Instituto Ádapo)
+     ========================================================= */
+
+  /* 10% — Ponto Focal & Ação (Laranja Ádapo) */
+  --color-primary: #F2632D;
+  --color-primary-hover: #D84E1A;
+  --color-primary-soft: #FDEEE7;
+  --color-primary-border: #FCD5C5;
+
+  /* Amazônia / Verde-Azulado Institucional */
+  --color-amazon: #1C9C82;
+  --color-amazon-hover: #157E69;
+  --color-amazon-soft: #E7F6F3;
+  --color-amazon-border: #BCE5DC;
+
+  /* Amarelo Institucional */
+  --color-amber: #F9C859;
+  --color-amber-soft: #FEF8E7;
+  --color-amber-border: #FCE6AC;
+
+  /* Marrom Terroso / Identificadores */
+  --color-earth: #8B4A2E;
+  --color-earth-soft: #F8F1ED;
+
+  /* 60% — Superfície & Fundo (Base Acolhedora Ádapo) */
+  --bg-primary: #FDFBF8;
+  --bg-elevated: #FFFFFF;
+  --bg-secondary: #F5F1EA;
+
+  /* 30% — Estrutura, Bordas e Leitura */
+  --border-default: #E8E1D6;
+  --border-subtle: #F0EBE1;
+
+  --text-primary: #2B2118;
+  --text-secondary: #574B3F;
+  --text-muted: #877767;
+  --text-inverse: #FFFFFF;
+
+  /* Status Semânticos Oficiais */
+  --status-success: #1C9C82;
+  --status-success-bg: #E7F6F3;
+  --status-success-border: #BCE5DC;
+
+  --status-warning: #D97706;
+  --status-warning-bg: #FEF3C7;
+  --status-warning-border: #FCD34D;
+
+  --status-danger: #D64545;
+  --status-danger-bg: #FEEBEB;
+  --status-danger-border: #F9BFBF;
+
+  /* Tipografia */
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+
+  /* Espaçamentos Generosos (Regra de Whitespace) */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+
+  /* Geometria Soft Bento (Conforme seção 3 do desing.md) */
+  --radius-badge: 8px;
+  --radius-pill: 9999px;
+  --radius-control: 12px;   /* rounded-xl para controles, inputs e botões */
+  --radius-card: 16px;      /* rounded-xl para cards e modais */
+  --radius-container: 24px; /* rounded-2xl para contêineres principais */
+
+  /* Sombras Suaves */
+  --shadow-card: 0 4px 12px -2px rgba(43, 33, 24, 0.06), 0 2px 6px -2px rgba(43, 33, 24, 0.03);
+  --shadow-lg: 0 12px 24px -4px rgba(43, 33, 24, 0.08), 0 4px 8px -2px rgba(43, 33, 24, 0.04);
+  --shadow-xl: 0 20px 32px -4px rgba(43, 33, 24, 0.12), 0 8px 16px -4px rgba(43, 33, 24, 0.06);
+
+  /* Transições */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
