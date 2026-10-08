@@ -384,10 +384,17 @@ function obterTodasAreas() {
   const dados = aba.getRange(2, 1, totalLinhas - 1, 5).getValues();
 
   const areas = dados.map(linha => {
+    let fotoUrl = String(linha[2] || "").trim();
+    // Converte automaticamente links do Google Drive para imagem direta
+    const driveMatch = fotoUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || fotoUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1]) {
+      fotoUrl = "https://lh3.googleusercontent.com/d/" + driveMatch[1] + "=w400";
+    }
+
     return {
       nome: String(linha[0] || "").trim(),
       responsavel: String(linha[1] || "").trim(),
-      fotoUrl: String(linha[2] || "").trim(),
+      fotoUrl: fotoUrl,
       descricao: String(linha[3] || "").trim(),
       whatsapp: String(linha[4] || "").trim()
     };

@@ -77,6 +77,16 @@ const API = {
   async getAreas() {
     const endpoint = this.getEndpointUrl();
 
+    const normalizarUrl = (url) => {
+      if (!url || typeof url !== "string") return "";
+      const limpa = url.trim();
+      const driveMatch = limpa.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || limpa.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (driveMatch && driveMatch[1]) {
+        return `https://lh3.googleusercontent.com/d/${driveMatch[1]}=w400`;
+      }
+      return limpa;
+    };
+
     if (endpoint) {
       try {
         const response = await fetch(`${endpoint}?action=areas`, {
@@ -87,8 +97,12 @@ const API = {
         if (response.ok) {
           const data = await response.json();
           if (data && data.sucesso && Array.isArray(data.areas) && data.areas.length > 0) {
-            localStorage.setItem(CONFIG.STORAGE_KEYS.AREAS, JSON.stringify(data.areas));
-            return data.areas;
+            const areasTratadas = data.areas.map(a => ({
+              ...a,
+              fotoUrl: normalizarUrl(a.fotoUrl)
+            }));
+            localStorage.setItem(CONFIG.STORAGE_KEYS.AREAS, JSON.stringify(areasTratadas));
+            return areasTratadas;
           }
         }
       } catch (err) {
@@ -99,11 +113,20 @@ const API = {
     const cachedAreas = localStorage.getItem(CONFIG.STORAGE_KEYS.AREAS);
     if (cachedAreas) {
       try {
-        return JSON.parse(cachedAreas);
+        const parsed = JSON.parse(cachedAreas);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map(a => ({
+            ...a,
+            fotoUrl: normalizarUrl(a.fotoUrl)
+          }));
+        }
       } catch (e) {}
     }
 
-    return CONFIG.AREAS_PADRAO;
+    return CONFIG.AREAS_PADRAO.map(a => ({
+      ...a,
+      fotoUrl: normalizarUrl(a.fotoUrl)
+    }));
   },
 
   /**

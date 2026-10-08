@@ -219,14 +219,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Coordenador de Área
     document.getElementById("coordinatorName").textContent = areaInfo.responsavel || "Coordenação Ádapo";
-    document.getElementById("coordinatorPontoEncontro").textContent = areaInfo.pontoEncontro || "Ponto de Encontro da Área";
+    document.getElementById("coordinatorPontoEncontro").textContent = areaInfo.pontoEncontro || "Liderança da Área";
 
-    // Avatar do Coordenador (Iniciais ou Foto)
+    // Avatar do Coordenador (Foto com fallback limpo para Iniciais)
     const avatarEl = document.getElementById("coordinatorAvatar");
-    if (areaInfo.fotoUrl && areaInfo.fotoUrl.startsWith("http")) {
-      avatarEl.innerHTML = `<img src="${areaInfo.fotoUrl}" alt="${areaInfo.responsavel}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+    const fotoFinal = formatarUrlImagem(areaInfo.fotoUrl);
+    const iniciais = extrairIniciais(areaInfo.responsavel || "CA");
+
+    if (fotoFinal && (fotoFinal.startsWith("http") || fotoFinal.startsWith("assets/"))) {
+      avatarEl.innerHTML = `<img src="${fotoFinal}" alt="${escapeHtml(areaInfo.responsavel || '')}" onerror="this.onerror=null; this.parentElement.textContent='${iniciais}';">`;
     } else {
-      const iniciais = extrairIniciais(areaInfo.responsavel || "CA");
       avatarEl.textContent = iniciais;
     }
 
@@ -348,6 +350,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         selecionarVoluntario(voluntario);
       }
     }
+  }
+
+  function formatarUrlImagem(url) {
+    if (!url || typeof url !== "string") return "";
+    const limpa = url.trim();
+    if (!limpa) return "";
+
+    // Suporte automático a links de compartilhamento do Google Drive (conversão para imagem direta)
+    const driveMatch = limpa.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+                       limpa.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (driveMatch && driveMatch[1]) {
+      const fileId = driveMatch[1];
+      return `https://lh3.googleusercontent.com/d/${fileId}=w400`;
+    }
+
+    return limpa;
   }
 
   function extrairIniciais(nome) {

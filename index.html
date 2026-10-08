@@ -28,8 +28,10 @@
     <div class="container">
       <div class="top-header-inner">
         <a href="index.html" class="brand-wrapper">
-          <img src="assets/logo.png" alt="Instituto Ádapo" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('brandLogoFallback').style.display='flex';">
-          <div class="brand-logo-mark" id="brandLogoFallback">ÁD</div>
+          <img src="assets/logo.png" alt="Instituto Ádapo" class="brand-logo-img"
+            onload="const fb = document.getElementById('brandLogoFallback'); if(fb) fb.style.display='none';"
+            onerror="this.style.display='none'; const fb = document.getElementById('brandLogoFallback'); if(fb) fb.style.display='flex';">
+          <div class="brand-logo-mark" id="brandLogoFallback" style="display: none;">ÁD</div>
           <div class="brand-titles">
             <span class="brand-name">Instituto Ádapo</span>
             <span class="brand-event">Amazônia Brincante 2026 • 11 de Outubro</span>

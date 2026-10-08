@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coordenação e Credenciamento | Amazônia Brincante 2026 — Instituto Ádapo</title>
-  <meta name="description" content="Painel oficial de credenciamento via QR Code, controle de presença e gestão de voluntários do Instituto Ádapo.">
+  <meta name="description"
+    content="Painel oficial de credenciamento via QR Code, controle de presença e gestão de voluntários do Instituto Ádapo.">
 
   <!-- Fontes Institucionais -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet">
 
   <!-- Estilos -->
   <link rel="stylesheet" href="css/variables.css">
@@ -20,6 +24,7 @@
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
   <!-- Cabeçalho Institucional -->
@@ -27,11 +32,13 @@
     <div class="container">
       <div class="top-header-inner">
         <a href="admin.html" class="brand-wrapper">
-          <img src="assets/logo.png" alt="Instituto Ádapo" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('brandAdminLogoFallback').style.display='flex';">
-          <div class="brand-logo-mark" id="brandAdminLogoFallback">ÁD</div>
+          <img src="assets/logo.png" alt="Instituto Ádapo" class="brand-logo-img"
+            onload="const fb = document.getElementById('brandAdminLogoFallback'); if(fb) fb.style.display='none';"
+            onerror="this.style.display='none'; const fb = document.getElementById('brandAdminLogoFallback'); if(fb) fb.style.display='flex';">
+          <div class="brand-logo-mark" id="brandAdminLogoFallback" style="display: none;">ÁD</div>
           <div class="brand-titles">
             <span class="brand-name">Instituto Ádapo</span>
-            <span class="brand-event">Coordenação & Credenciamento • Amazônia Brincante</span>
+            <span class="brand-event">Credenciamento • Amazônia Brincante</span>
           </div>
         </a>
 
@@ -40,7 +47,8 @@
             <i data-lucide="shield" style="width: 13px; height: 13px;"></i>
             Acesso Restrito
           </span>
-          <button type="button" id="btnLogoutAdmin" class="btn btn-secondary btn-sm" style="display: none; padding: 6px 12px; font-size: 12px;">
+          <button type="button" id="btnLogoutAdmin" class="btn btn-secondary btn-sm"
+            style="display: none; padding: 6px 12px; font-size: 12px;">
             <i data-lucide="lock" style="width: 13px; height: 13px;"></i>
             Bloquear
           </button>
@@ -50,31 +58,28 @@
   </header>
 
   <!-- Tela de Bloqueio e Autenticação por PIN de Segurança -->
-  <div id="authGateOverlay" style="position: fixed; inset: 0; background: var(--bg-primary); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: var(--space-4);">
-    <div class="card" style="width: 100%; max-width: 420px; text-align: center; box-shadow: var(--shadow-xl); border: 2px solid var(--border-default);">
-      <div style="width: 52px; height: 52px; background: var(--color-primary-soft); color: var(--color-primary); border-radius: var(--radius-control); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3) auto;">
+  <div id="authGateOverlay"
+    style="position: fixed; inset: 0; background: var(--bg-primary); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: var(--space-4);">
+    <div class="card"
+      style="width: 100%; max-width: 420px; text-align: center; box-shadow: var(--shadow-xl); border: 2px solid var(--border-default);">
+      <div
+        style="width: 52px; height: 52px; background: var(--color-primary-soft); color: var(--color-primary); border-radius: var(--radius-control); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3) auto;">
         <i data-lucide="lock" style="width: 26px; height: 26px;"></i>
       </div>
       <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--space-1);">Acesso da Coordenação</h2>
       <p style="font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--space-6);">
-        Painel restrito à equipe de credenciamento e recepção do Instituto Ádapo.
+        Painel restrito à equipe de credenciamento e recepção do Instituto Ádapo (Cauê e Dandara).
       </p>
 
       <form id="authPinForm">
         <div class="form-group" style="text-align: left;">
           <label class="form-label" for="inputPin">PIN de Segurança</label>
-          <input 
-            type="password" 
-            id="inputPin" 
-            class="form-input" 
-            placeholder="Digite o PIN da coordenação..."
-            autocomplete="current-password"
-            required
-            style="text-align: center; letter-spacing: 4px; font-size: 18px;"
-          >
+          <input type="password" id="inputPin" class="form-input" placeholder="Digite o PIN da coordenação..."
+            autocomplete="current-password" required style="text-align: center; letter-spacing: 4px; font-size: 18px;">
         </div>
 
-        <div id="authErrorMsg" class="alert alert-warning" style="display: none; font-size: 12px; padding: 8px 12px; margin-bottom: var(--space-4);">
+        <div id="authErrorMsg" class="alert alert-warning"
+          style="display: none; font-size: 12px; padding: 8px 12px; margin-bottom: var(--space-4);">
           PIN incorreto. Verifique com a coordenação geral.
         </div>
 
@@ -98,7 +103,7 @@
             <i data-lucide="users" style="width: 18px; height: 18px; color: var(--color-text-muted);"></i>
           </div>
           <div class="metric-val" id="metricTotal">0</div>
-          <div class="metric-sub">Voluntários registrados na ação</div>
+          <div class="metric-sub">Voluntários inscritos na ação</div>
         </div>
 
         <div class="metric-card presentes">
@@ -145,7 +150,7 @@
         </button>
         <button type="button" class="tab-btn" data-tab="tabConfig">
           <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
-          Configuração & Integração
+          Configuração & Integração (NÃO MEXER)
         </button>
       </nav>
 
@@ -157,7 +162,8 @@
 
           <!-- Coluna 1: Câmera do Leitor -->
           <div class="scanner-viewport-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
               <h2 style="font-size: var(--font-size-base);">Leitor de QR Code da Recepção</h2>
               <span id="cameraStatusBadge" class="badge badge-inscrito">Pronto</span>
             </div>
@@ -184,16 +190,12 @@
             </div>
 
             <!-- Fallback: Check-in Manual por Código ou Nome -->
-            <div style="margin-top: var(--space-6); border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
+            <div
+              style="margin-top: var(--space-6); border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
               <label class="form-label">Check-in Manual Rápido (Se o voluntário estiver sem celular)</label>
               <div style="display: flex; gap: var(--space-2);">
-                <input 
-                  type="text" 
-                  id="manualCheckinInput" 
-                  class="form-input" 
-                  placeholder="Digite o código (ex: ADP-1002) ou nome..."
-                  style="font-size: 14px;"
-                >
+                <input type="text" id="manualCheckinInput" class="form-input"
+                  placeholder="Digite o código (ex: ADP-1002) ou nome..." style="font-size: 14px;">
                 <button type="button" id="btnManualCheckin" class="btn btn-primary" style="flex-shrink: 0;">
                   Confirmar
                 </button>
@@ -210,15 +212,19 @@
                 <span id="scanFeedbackText">Presença Registrada com Sucesso</span>
               </div>
 
-              <div id="scanEmptyState" style="text-align: center; padding: var(--space-10) var(--space-4); color: var(--color-text-muted);">
-                <i data-lucide="qr-code" style="width: 48px; height: 48px; margin-bottom: var(--space-3); stroke-width: 1.5;"></i>
+              <div id="scanEmptyState"
+                style="text-align: center; padding: var(--space-10) var(--space-4); color: var(--color-text-muted);">
+                <i data-lucide="qr-code"
+                  style="width: 48px; height: 48px; margin-bottom: var(--space-3); stroke-width: 1.5;"></i>
                 <p style="font-weight: 600; color: var(--color-text-primary);">Aguardando Leitura</p>
-                <p style="font-size: var(--font-size-xs);">Os dados do voluntário credenciado aparecerão instantaneamente aqui.</p>
+                <p style="font-size: var(--font-size-xs);">Os dados do voluntário credenciado aparecerão
+                  instantaneamente aqui.</p>
               </div>
 
               <!-- Detalhes do Voluntário Lido -->
               <div id="scanDetailsContainer" style="display: none;">
-                <div class="credential-code-tag" id="scanVolunteerId" style="background: var(--color-surface-subtle); color: var(--color-primary-dark); border: 1px solid var(--color-border); display: inline-block; margin-bottom: var(--space-2);">
+                <div class="credential-code-tag" id="scanVolunteerId"
+                  style="background: var(--color-surface-subtle); color: var(--color-primary-dark); border: 1px solid var(--color-border); display: inline-block; margin-bottom: var(--space-2);">
                   ADP-0000
                 </div>
 
@@ -251,7 +257,8 @@
                   <i data-lucide="info" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
                   <div>
                     <strong>Instrução da Recepção:</strong>
-                    <div id="scanInstructions">Entregar crachá físico e orientar o voluntário a se apresentar ao coordenador de área.</div>
+                    <div id="scanInstructions">Entregar crachá físico e orientar o voluntário a se apresentar ao
+                      coordenador de área.</div>
                   </div>
                 </div>
 
@@ -267,10 +274,12 @@
 
             <!-- Últimas Leituras Realizadas -->
             <div class="card" style="margin-top: var(--space-4); padding: var(--space-4);">
-              <h4 style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3);">
+              <h4
+                style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3);">
                 Histórico Recente de Entradas
               </h4>
-              <div id="recentScansList" style="font-size: var(--font-size-xs); color: var(--color-text-secondary); display: flex; flex-direction: column; gap: var(--space-2);">
+              <div id="recentScansList"
+                style="font-size: var(--font-size-xs); color: var(--color-text-secondary); display: flex; flex-direction: column; gap: var(--space-2);">
                 <div style="color: var(--color-text-muted);">Nenhuma entrada registrada nesta sessão.</div>
               </div>
             </div>
@@ -284,16 +293,12 @@
            ABA 2: LISTA GERAL DE VOLUNTÁRIOS & CONTROLE
            ========================================================= -->
       <section id="tabLista" class="tab-content" style="display: none;">
-        
+
         <!-- Barra de Filtros -->
         <div class="filter-bar">
           <div class="filter-search-box">
-            <input 
-              type="text" 
-              id="tableSearchInput" 
-              class="form-input" 
-              placeholder="Pesquisar por nome, WhatsApp ou ID..."
-            >
+            <input type="text" id="tableSearchInput" class="form-input"
+              placeholder="Pesquisar por nome, WhatsApp ou ID...">
           </div>
 
           <div style="min-width: 180px;">
@@ -359,21 +364,19 @@
            ========================================================= -->
       <section id="tabConfig" class="tab-content" style="display: none;">
         <div class="card" style="max-width: 680px; margin: 0 auto;">
-          <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--space-2);">Integração com a Planilha Google Sheets</h2>
+          <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--space-2);">Integração com a Planilha Google
+            Sheets</h2>
           <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6);">
             Conecte este sistema diretamente à planilha de inscrições do Instituto Ádapo via Google Apps Script.
           </p>
 
           <div class="form-group">
             <label class="form-label">URL da API do Google Apps Script (Web App)</label>
-            <input 
-              type="url" 
-              id="inputAppsScriptUrl" 
-              class="form-input" 
-              placeholder="https://script.google.com/macros/s/AKfycb.../exec"
-            >
+            <input type="url" id="inputAppsScriptUrl" class="form-input"
+              placeholder="https://script.google.com/macros/s/AKfycb.../exec">
             <small style="color: var(--color-text-muted); display: block; margin-top: var(--space-1); font-size: 12px;">
-              Cole a URL obtida ao clicar em <em>Implantar &gt; Nova Implantação &gt; Aplicativo da Web</em> na sua planilha.
+              Cole a URL obtida ao clicar em <em>Implantar &gt; Nova Implantação &gt; Aplicativo da Web</em> na sua
+              planilha.
             </small>
           </div>
 
@@ -393,13 +396,17 @@
             Configuração atualizada com sucesso.
           </div>
 
-          <div style="margin-top: var(--space-8); border-top: 1px solid var(--color-border); padding-top: var(--space-6);">
-            <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-2);">Instruções Rápidas de Implantação</h3>
-            <ol style="font-size: var(--font-size-sm); color: var(--color-text-secondary); padding-left: var(--space-4); line-height: 1.6;">
+          <div
+            style="margin-top: var(--space-8); border-top: 1px solid var(--color-border); padding-top: var(--space-6);">
+            <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-2);">Instruções Rápidas de
+              Implantação</h3>
+            <ol
+              style="font-size: var(--font-size-sm); color: var(--color-text-secondary); padding-left: var(--space-4); line-height: 1.6;">
               <li>Abra a planilha Google Sheets do Instituto Ádapo.</li>
               <li>Acesse o menu <strong>Extensões &gt; Apps Script</strong>.</li>
               <li>Cole o conteúdo do arquivo <code>apps-script/Code.gs</code> e salve.</li>
-              <li>Clique no botão <strong>Executar</strong> selecionando a função <code>executarSetupInicial</code> (para criar as colunas e a aba de Áreas).</li>
+              <li>Clique no botão <strong>Executar</strong> selecionando a função <code>executarSetupInicial</code>
+                (para criar as colunas e a aba de Áreas).</li>
               <li>Clique em <strong>Implantar &gt; Nova implantação</strong>.</li>
               <li>Tipo: <em>Aplicativo da Web</em> | Quem pode acessar: <strong>Qualquer pessoa</strong>.</li>
               <li>Copie a URL gerada e cole no campo acima.</li>
@@ -430,4 +437,5 @@
     }
   </script>
 </body>
+
 </html>

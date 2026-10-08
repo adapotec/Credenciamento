@@ -91,6 +91,7 @@ a:hover {
   max-width: 180px;
   object-fit: contain;
   display: block;
+  border-radius: var(--radius-control);
 }
 
 .brand-logo-mark {
