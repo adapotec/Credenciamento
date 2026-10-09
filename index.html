@@ -82,7 +82,115 @@
         <p>Localizando registros na planilha...</p>
       </div>
 
-      <!-- Credencial Oficial (Exibida após seleção) -->
+      <!-- =========================================================
+           SEÇÃO OBRIGATÓRIA: TERMO DE CONDUTA E USO DE IMAGEM
+           (Exibida após selecionar o nome; acesso ao QR Code bloqueado até o aceite)
+           ========================================================= -->
+      <section id="termsSection" class="terms-wrapper" style="display: none;">
+        <div class="terms-card">
+          <div class="terms-header">
+            <div class="terms-badge-tag">
+              <i data-lucide="shield-alert" style="width: 14px; height: 14px;"></i>
+              Termo Obrigatório • Instituto Ádapo
+            </div>
+            <h2 class="terms-title">Termo de Conduta e Uso de Imagem</h2>
+            <p class="terms-subtitle">
+              Ação Comunitária de Dia das Crianças no Novo Angelim — Instituto Ádapo
+            </p>
+
+            <div class="terms-volunteer-pill">
+              <div class="terms-volunteer-pill-icon">
+                <i data-lucide="user-check" style="width: 18px; height: 18px;"></i>
+              </div>
+              <div class="terms-volunteer-pill-info">
+                <span class="terms-volunteer-pill-label">Voluntário(a) Identificado(a)</span>
+                <span class="terms-volunteer-pill-name" id="termsVolunteerName">Nome do Voluntário</span>
+              </div>
+              <span class="badge badge-inscrito" id="termsVolunteerId">ADP-0000</span>
+            </div>
+          </div>
+
+          <!-- Caixa Rolável com Texto Integral do Termo -->
+          <div class="terms-content-box" id="termsContentBox">
+            <div class="terms-legal-text">
+              <div class="terms-section-block">
+                <h4>1. Introdução e Boas-Vindas</h4>
+                <p>Seja muito bem-vindo(a) à nossa Ação Comunitária de Dia das Crianças no Novo Angelim! O trabalho voluntário e as parcerias solidárias são o coração das nossas atividades. Para que este dia seja seguro, acolhedor e transformador para todas as pessoas envolvidas, estabelecemos este Termo de Conduta e Política de Uso de Imagem.</p>
+                <p>Nosso compromisso primordial é o cuidado e a proteção integral de cada criança e adolescente presente, em total harmonia com os princípios do Estatuto da Criança e do Adolescente (Lei Federal nº 8.069/1990) e com a Lei Geral de Proteção de Dados Pessoais — LGPD (Lei Federal nº 13.709/2018).</p>
+              </div>
+
+              <div class="terms-section-block">
+                <h4>2. Regras de Conduta e Convivência no Atendimento</h4>
+                <p>Durante toda a realização do evento, o(a) parceiro(a) ou voluntário(a) compromete-se a:</p>
+                <ul>
+                  <li><strong>Tratamento Digno e Afetuoso:</strong> Tratar todas as crianças, adolescentes, familiares e moradores da comunidade com respeito, paciência, dignidade e empatia, zelando pelo bem-estar físico, psicológico e moral do público atendido.</li>
+                  <li><strong>Não Discriminação:</strong> Agir sem qualquer distinção, preconceito ou atitude discriminatória com base em raça, cor, etnia, religião ou crença, gênero, orientação sexual, deficiência, condição econômica ou origem social.</li>
+                  <li><strong>Respeito aos Limites Físicos:</strong> Manter conduta estritamente profissional e comunitária durante a execução dos serviços (cortes de cabelo, tranças, dinâmicas de recreação, comunicação, apoio e etc), assegurando que qualquer contato corporal se restrinja estritamente ao necessário para a execução do serviço e com a prévia aceitação da criança e ciência de seus responsáveis.</li>
+                  <li><strong>Zelo pelo Instituto Ádapo:</strong> Representar a instituição de maneira ética, mantendo ambiente harmônico e colaborativo com os demais voluntários e organizadores da ação.</li>
+                </ul>
+              </div>
+
+              <div class="terms-section-block">
+                <h4>3. Política de Uso de Imagem, Voz e Dispositivos Móveis (Celulares)</h4>
+                <p>A captura de fotos, gravações em vídeo e captação de áudio durante a ação comunitária sujeita-se às seguintes diretrizes obrigatórias:</p>
+                <ul>
+                  <li><strong>Uso Institucional Prioritário:</strong> As imagens e vozes captadas pela equipe oficial do evento serão destinadas unicamente a fins institucionais, educativos, culturais e de prestação de contas do Instituto Ádapo, tais como relatórios de atividades, projetos sociais e publicações nas redes sociais e canais oficiais da instituição.</li>
+                  <li><strong>Proibição de Estigmatização e Sensacionalismo:</strong> Fica expressamente proibida qualquer captura, gravação ou postagem individual por parte do(a) voluntário(a)/parceiro(a) que exponha crianças, adolescentes ou suas respectivas famílias a situações de constrangimento, humilhação, vulnerabilidade social, estigmatização, ridicularização ou risco à sua integridade moral e psicológica.</li>
+                  <li><strong>Regras para Redes Pessoais e Comerciais:</strong> A divulgação de registros em perfis pessoais ou profissionais do(a) parceiro(a) (ex.: registro do próprio trabalho de corte ou trança) deve ser comedida e respeitosa, dependendo da autorização expressa dos responsáveis legais da criança e da coordenação do Instituto Ádapo. Não serão permitidas marcações com dados pessoais que identifiquem ou exponham indevidamente a criança.</li>
+                  <li><strong>Vedações Absolutas de Associação de Imagem:</strong> É terminantemente proibido vincular qualquer registro visual, sonoro ou menção ao evento e ao Instituto Ádapo a:
+                    <ol type="a">
+                      <li>Propagandas político-partidárias ou promoção de candidaturas e agentes públicos;</li>
+                      <li>Discursos de ódio, manifestações preconceituosas ou promoção de violência;</li>
+                      <li>Conteúdo de teor sexual, erótico ou pornográfico;</li>
+                      <li>Promoção de casas de aposta ("bets"), jogos de azar, rifas não autorizadas ou produtos ilícitos;</li>
+                      <li>Notícias falsas (fake news) ou desinformação.</li>
+                    </ol>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="terms-section-block">
+                <h4>4. Descumprimento e Penalidades</h4>
+                <p>O descumprimento de qualquer uma das cláusulas deste termo implicará:</p>
+                <ul>
+                  <li>O desligamento e afastamento imediato do(a) parceiro(a) ou voluntário(a) das atividades do evento;</li>
+                  <li>A obrigação de imediata exclusão e remoção de publicações, fotos ou vídeos indevidos de quaisquer redes sociais ou mídias digitais;</li>
+                  <li>A comunicação às autoridades competentes (Conselho Tutelar e autoridade policial) e a responsabilização civil e criminal cabível, nos termos do ECA e do Código Civil.</li>
+                </ul>
+              </div>
+
+              <div class="terms-section-block">
+                <h4>5. Termo de Ciência, Concordância e Assinatura</h4>
+                <p>Declaro, para os devidos fins, que li, compreendi integralmente e concordo com todas as diretrizes deste Termo de Conduta e Política de Uso de Imagem, assumindo a responsabilidade ética e jurídica pela sua observância durante a minha participação voluntária junto ao Instituto Ádapo.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Caixa de Aceite Obrigatório com Checkbox -->
+          <div class="terms-acceptance-box">
+            <label class="terms-checkbox-label" for="termsCheckbox">
+              <input type="checkbox" id="termsCheckbox" class="terms-checkbox-input">
+              <span class="terms-checkbox-text">
+                Declaro, para os devidos fins, que <strong>li, compreendi integralmente e concordo</strong> com todas as diretrizes deste <strong>Termo de Conduta e Política de Uso de Imagem</strong>, assumindo a responsabilidade ética e jurídica pela sua observância durante a minha participação voluntária junto ao <strong>Instituto Ádapo</strong>.
+              </span>
+            </label>
+          </div>
+
+          <!-- Ações -->
+          <div class="terms-actions">
+            <button type="button" id="btnAcceptTerms" class="btn btn-primary btn-full btn-lg" disabled>
+              <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+              Confirmar e Acessar Credencial com QR Code
+            </button>
+            <button type="button" id="btnBackToSearch" class="btn btn-secondary btn-full">
+              <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+              Voltar / Escolher Outro Voluntário
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credencial Oficial (Exibida SOMENTE após o aceite dos termos) -->
       <section id="credentialSection" class="credential-wrapper" style="display: none;">
         
         <div class="credential-card" id="credentialBadgeToDownload">
@@ -101,9 +209,24 @@
           <div class="credential-body">
 
             <!-- Status de Credenciamento -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3);">
               <span class="form-label" style="margin-bottom: 0;">Status de Presença</span>
               <span id="badgeStatusBadge" class="badge badge-inscrito">Inscrito</span>
+            </div>
+
+            <!-- Banner de Confirmação do Termo de Conduta e Uso de Imagem -->
+            <div class="terms-verified-banner" id="termsVerifiedBanner">
+              <div class="terms-verified-left">
+                <i data-lucide="shield-check" class="terms-verified-icon"></i>
+                <div>
+                  <div class="terms-verified-title">Termo de Conduta e Imagem</div>
+                  <div class="terms-verified-desc" id="badgeTermsTimestamp">Assinado e confirmado digitalmente</div>
+                </div>
+              </div>
+              <button type="button" id="btnOpenTermsModal" class="btn btn-secondary btn-sm" style="flex-shrink: 0; padding: 4px 10px; font-size: 11px;">
+                <i data-lucide="file-text" style="width: 13px; height: 13px;"></i>
+                Ver Termo
+              </button>
             </div>
 
             <!-- Bloco do QR Code -->
@@ -194,6 +317,35 @@
 
     </div>
   </main>
+
+  <!-- Modal de Leitura Integral do Termo de Conduta e Uso de Imagem -->
+  <div id="termsModal" class="terms-modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="termsModalTitle">
+    <div class="terms-modal-dialog">
+      <div class="terms-modal-header">
+        <div style="display: flex; align-items: center; gap: var(--space-2);">
+          <i data-lucide="shield-check" style="width: 18px; height: 18px; color: var(--color-primary);"></i>
+          <h3 id="termsModalTitle" style="font-size: var(--font-size-base); font-weight: 700; color: var(--text-primary); margin: 0;">
+            Termo de Conduta e Uso de Imagem
+          </h3>
+        </div>
+        <button type="button" id="btnCloseTermsModal" class="btn btn-secondary btn-sm" style="padding: 4px 8px; border-radius: var(--radius-pill); min-height: unset;" aria-label="Fechar modal">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+      <div class="terms-modal-body">
+        <div class="terms-content-box" style="max-height: unset; background: transparent; border: none; padding: 0; margin-bottom: 0;">
+          <div class="terms-legal-text" id="termsModalLegalContent">
+            <!-- Conteúdo sincronizado com as cláusulas -->
+          </div>
+        </div>
+      </div>
+      <div class="terms-modal-footer">
+        <button type="button" id="btnCloseTermsModalFooter" class="btn btn-secondary btn-sm">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Rodapé Institucional -->
   <footer class="site-footer">

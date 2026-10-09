@@ -148,10 +148,6 @@
           <i data-lucide="layout-grid" style="width: 16px; height: 16px;"></i>
           Distribuição por Áreas
         </button>
-        <button type="button" class="tab-btn" data-tab="tabConfig">
-          <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
-          Configuração & Integração (NÃO MEXER)
-        </button>
       </nav>
 
       <!-- =========================================================
@@ -356,64 +352,6 @@
 
         <div class="areas-summary-grid" id="areasSummaryGrid">
           <!-- Cards de áreas gerados via JavaScript -->
-        </div>
-      </section>
-
-      <!-- =========================================================
-           ABA 4: CONFIGURAÇÃO & INTEGRAÇÃO
-           ========================================================= -->
-      <section id="tabConfig" class="tab-content" style="display: none;">
-        <div class="card" style="max-width: 680px; margin: 0 auto;">
-          <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--space-2);">Integração com a Planilha Google
-            Sheets</h2>
-          <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-bottom: var(--space-6);">
-            Conecte este sistema diretamente à planilha de inscrições do Instituto Ádapo via Google Apps Script.
-          </p>
-
-          <div class="form-group">
-            <label class="form-label">URL da API do Google Apps Script (Web App)</label>
-            <input type="url" id="inputAppsScriptUrl" class="form-input"
-              placeholder="https://script.google.com/macros/s/AKfycb.../exec">
-            <small style="color: var(--color-text-muted); display: block; margin-top: var(--space-1); font-size: 12px;">
-              Cole a URL obtida ao clicar em <em>Implantar &gt; Nova Implantação &gt; Aplicativo da Web</em> na sua
-              planilha.
-            </small>
-          </div>
-
-          <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
-            <button type="button" id="btnSaveConfig" class="btn btn-primary">
-              <i data-lucide="save" style="width: 16px; height: 16px;"></i>
-              Salvar Configuração
-            </button>
-
-            <button type="button" id="btnSyncNow" class="btn btn-secondary">
-              <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
-              Sincronizar com a Planilha Agora
-            </button>
-          </div>
-
-          <div id="syncResultAlert" class="alert alert-success" style="display: none; margin-top: var(--space-4);">
-            Configuração atualizada com sucesso.
-          </div>
-
-          <div
-            style="margin-top: var(--space-8); border-top: 1px solid var(--color-border); padding-top: var(--space-6);">
-            <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-2);">Instruções Rápidas de
-              Implantação</h3>
-            <ol
-              style="font-size: var(--font-size-sm); color: var(--color-text-secondary); padding-left: var(--space-4); line-height: 1.6;">
-              <li>Abra a planilha Google Sheets do Instituto Ádapo.</li>
-              <li>Acesse o menu <strong>Extensões &gt; Apps Script</strong>.</li>
-              <li>Cole o conteúdo do arquivo <code>apps-script/Code.gs</code> e salve.</li>
-              <li>Clique no botão <strong>Executar</strong> selecionando a função <code>executarSetupInicial</code>
-                (para criar as colunas e a aba de Áreas).</li>
-              <li>Clique em <strong>Implantar &gt; Nova implantação</strong>.</li>
-              <li>Tipo: <em>Aplicativo da Web</em> | Quem pode acessar: <strong>Qualquer pessoa</strong>.</li>
-              <li>Copie a URL gerada e cole no campo acima.</li>
-            </ol>
-          </div>
-
-        </div>
       </section>
 
     </div>

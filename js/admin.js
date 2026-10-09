@@ -68,7 +68,6 @@ window.AdminManager = {
     this.inicializado = true;
     this.configurarAbas();
     this.configurarBotoes();
-    this.carregarConfiguracao();
 
     await this.carregarDados();
     this.renderizarAreasDropdownFiltro();
@@ -196,42 +195,6 @@ window.AdminManager = {
     const btnExport = document.getElementById("btnExportCsv");
     if (btnExport) {
       btnExport.addEventListener("click", () => this.exportarCsv());
-    }
-
-    // Salvar configuração de URL
-    const btnSaveCfg = document.getElementById("btnSaveConfig");
-    const btnSync = document.getElementById("btnSyncNow");
-
-    if (btnSaveCfg) {
-      btnSaveCfg.addEventListener("click", () => {
-        const url = document.getElementById("inputAppsScriptUrl").value;
-        API.setEndpointUrl(url);
-        const alertBox = document.getElementById("syncResultAlert");
-        alertBox.style.display = "block";
-        alertBox.textContent = "URL da API salva com sucesso!";
-        setTimeout(() => alertBox.style.display = "none", 3000);
-      });
-    }
-
-    if (btnSync) {
-      btnSync.addEventListener("click", async () => {
-        btnSync.disabled = true;
-        btnSync.innerHTML = `<span class="spinner" style="width: 14px; height: 14px; border-width: 2px;"></span> Sincronizando...`;
-        await this.carregarDados();
-        this.atualizarMetricas();
-        this.renderizarTabela();
-        this.renderizarQuadroAreas();
-        btnSync.disabled = false;
-        btnSync.innerHTML = `<i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i> Sincronizar com a Planilha Agora`;
-        if (window.lucide) lucide.createIcons();
-      });
-    }
-  },
-
-  carregarConfiguracao() {
-    const input = document.getElementById("inputAppsScriptUrl");
-    if (input) {
-      input.value = API.getEndpointUrl();
     }
   },
 

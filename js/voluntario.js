@@ -12,6 +12,60 @@ document.addEventListener("DOMContentLoaded", async () => {
   const btnChangeVolunteer = document.getElementById("btnChangeVolunteer");
   const btnDownloadBadge = document.getElementById("btnDownloadBadge");
 
+  // Elementos do Termo de Conduta e Uso de Imagem
+  const termsSection = document.getElementById("termsSection");
+  const termsVolunteerName = document.getElementById("termsVolunteerName");
+  const termsVolunteerId = document.getElementById("termsVolunteerId");
+  const termsCheckbox = document.getElementById("termsCheckbox");
+  const btnAcceptTerms = document.getElementById("btnAcceptTerms");
+  const btnBackToSearch = document.getElementById("btnBackToSearch");
+  const badgeTermsTimestamp = document.getElementById("badgeTermsTimestamp");
+  const termsModal = document.getElementById("termsModal");
+  const btnOpenTermsModal = document.getElementById("btnOpenTermsModal");
+  const btnCloseTermsModal = document.getElementById("btnCloseTermsModal");
+  const btnCloseTermsModalFooter = document.getElementById("btnCloseTermsModalFooter");
+  const termsModalLegalContent = document.getElementById("termsModalLegalContent");
+  const termsContentBox = document.getElementById("termsContentBox");
+
+  const STORAGE_KEY_TERMOS = "adapo_termos_aceitos_v1";
+
+  // Sincroniza o texto das cláusulas no modal de leitura
+  if (termsModalLegalContent && termsContentBox) {
+    const legalText = termsContentBox.querySelector(".terms-legal-text");
+    if (legalText) {
+      termsModalLegalContent.innerHTML = legalText.innerHTML;
+    }
+  }
+
+  function obterAceiteTermo(volId) {
+    if (!volId) return null;
+    try {
+      const todos = JSON.parse(localStorage.getItem(STORAGE_KEY_TERMOS) || "{}");
+      return todos[volId] || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function registrarAceiteTermo(vol) {
+    if (!vol || !vol.id) return null;
+    try {
+      const todos = JSON.parse(localStorage.getItem(STORAGE_KEY_TERMOS) || "{}");
+      const agora = new Date();
+      const registro = {
+        volId: vol.id,
+        nome: vol.nome,
+        aceitoEm: agora.toISOString(),
+        dataFormatada: agora.toLocaleDateString("pt-BR") + " às " + agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
+      };
+      todos[vol.id] = registro;
+      localStorage.setItem(STORAGE_KEY_TERMOS, JSON.stringify(todos));
+      return registro;
+    } catch (e) {
+      return null;
+    }
+  }
+
   let listaVoluntarios = [];
   let listaAreas = [];
   let voluntarioAtual = null;
@@ -136,7 +190,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   /**
-   * Seleciona um voluntário e renderiza o crachá
+   * Seleciona um voluntário e verifica obrigatoriedade do aceite dos termos
    */
   function selecionarVoluntario(vol) {
     voluntarioAtual = vol;
@@ -148,13 +202,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     novaUrl.searchParams.set("id", vol.id);
     window.history.pushState({}, "", novaUrl);
 
-    renderizarCredencial(vol);
+    // Verifica se já aceitou o termo anteriormente neste dispositivo
+    const aceiteExistente = obterAceiteTermo(vol.id);
+
+    if (aceiteExistente) {
+      // Já assinou: vai direto para a credencial e mostra a confirmação
+      searchSection.style.display = "none";
+      if (termsSection) termsSection.style.display = "none";
+      renderizarCredencial(vol, aceiteExistente);
+    } else {
+      // NÃO assinou: bloqueio obrigatório. Exibe tela de termos antes do QR Code
+      searchSection.style.display = "none";
+      credentialSection.style.display = "none";
+      if (termsSection) {
+        termsSection.style.display = "block";
+        if (termsVolunteerName) termsVolunteerName.textContent = vol.nome;
+        if (termsVolunteerId) termsVolunteerId.textContent = vol.id;
+        if (termsCheckbox) termsCheckbox.checked = false;
+        if (btnAcceptTerms) btnAcceptTerms.disabled = true;
+        if (termsContentBox) termsContentBox.scrollTop = 0;
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (window.lucide) lucide.createIcons();
+    }
   }
 
   /**
-   * Renderiza a credencial completa do voluntário
+   * Renderiza a credencial completa do voluntário (após aceite confirmado)
    */
-  function renderizarCredencial(vol) {
+  function renderizarCredencial(vol, registroAceite) {
+    // 0. Atualização do carimbo de aceite do termo
+    const aceite = registroAceite || obterAceiteTermo(vol.id);
+    if (badgeTermsTimestamp) {
+      if (aceite && aceite.dataFormatada) {
+        badgeTermsTimestamp.textContent = `Assinado digitalmente em ${aceite.dataFormatada}`;
+      } else {
+        badgeTermsTimestamp.textContent = "Assinado e confirmado digitalmente";
+      }
+    }
     // 1. Dados básicos
     document.getElementById("badgeVolunteerId").textContent = vol.id;
     document.getElementById("badgeVolunteerName").textContent = vol.nome;
@@ -266,6 +351,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 6. Transição de telas
     searchSection.style.display = "none";
+    if (termsSection) termsSection.style.display = "none";
     credentialSection.style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -275,10 +361,69 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /**
-   * Volta para a tela de pesquisa
+   * Eventos do Termo de Conduta e Uso de Imagem
+   */
+  if (termsCheckbox && btnAcceptTerms) {
+    // Habilita o botão somente quando a caixinha estiver marcada
+    termsCheckbox.addEventListener("change", () => {
+      btnAcceptTerms.disabled = !termsCheckbox.checked;
+    });
+
+    // Ao confirmar o aceite: salva o registro e libera a credencial
+    btnAcceptTerms.addEventListener("click", () => {
+      if (!termsCheckbox.checked || !voluntarioAtual) return;
+      const registro = registrarAceiteTermo(voluntarioAtual);
+      if (termsSection) termsSection.style.display = "none";
+      renderizarCredencial(voluntarioAtual, registro);
+    });
+  }
+
+  // Botão voltar da tela de termos para a pesquisa
+  if (btnBackToSearch) {
+    btnBackToSearch.addEventListener("click", () => {
+      if (termsSection) termsSection.style.display = "none";
+      credentialSection.style.display = "none";
+      searchSection.style.display = "block";
+      searchInput.value = "";
+      searchInput.focus();
+
+      const novaUrl = new URL(window.location.href);
+      novaUrl.searchParams.delete("id");
+      novaUrl.searchParams.delete("nome");
+      window.history.pushState({}, "", novaUrl);
+    });
+  }
+
+  // Modal de leitura dos termos
+  function fecharModalTermo() {
+    if (termsModal) termsModal.style.display = "none";
+  }
+
+  if (btnOpenTermsModal && termsModal) {
+    btnOpenTermsModal.addEventListener("click", () => {
+      termsModal.style.display = "flex";
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+  if (btnCloseTermsModal) btnCloseTermsModal.addEventListener("click", fecharModalTermo);
+  if (btnCloseTermsModalFooter) btnCloseTermsModalFooter.addEventListener("click", fecharModalTermo);
+  if (termsModal) {
+    termsModal.addEventListener("click", (e) => {
+      if (e.target === termsModal) fecharModalTermo();
+    });
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && termsModal && termsModal.style.display === "flex") {
+      fecharModalTermo();
+    }
+  });
+
+  /**
+   * Volta para a tela de pesquisa a partir da credencial
    */
   btnChangeVolunteer.addEventListener("click", () => {
     credentialSection.style.display = "none";
+    if (termsSection) termsSection.style.display = "none";
     searchSection.style.display = "block";
     searchInput.value = "";
     searchInput.focus();
